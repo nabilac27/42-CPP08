@@ -6,7 +6,7 @@
 #    By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/07/23 16:51:56 by nchairun          #+#    #+#              #
-#    Updated: 2026/07/23 16:52:05 by nchairun         ###   ########.fr        #
+#    Updated: 2026/07/23 17:18:14 by nchairun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME	= span
 #                               FILE STRUCTURE                                 #
 # **************************************************************************** #
 OBJ_DIR	= obj/
-SRCS	= main.cpp 
+SRCS	= main.cpp Span.cpp
 OBJS	= $(addprefix $(OBJ_DIR), $(SRCS:.cpp=.o))
 
 

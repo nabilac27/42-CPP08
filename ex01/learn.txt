@@ -1,0 +1,267 @@
+The goal of this exercise is to create a class that stores up to N integers and computes:
+
+the shortest span (smallest difference)
+the longest span (largest difference)
+
+It also introduces adding a range of iterators to insert many values at once.
+
+---
+
+addNumber()
+
+Adds one integer.
+
+Flow
+    addNumber(42)
+
+    Is vector full?
+            │
+    Yes ─────► throw exception
+            │
+        No
+            │
+    push_back(42)
+
+Example
+    Span sp(5);
+
+    sp.addNumber(6);
+    sp.addNumber(3);
+    sp.addNumber(17);
+
+Result
+    6 3 17
+
+---
+
+addRange()
+
+Instead of
+    sp.addNumber(1);
+    sp.addNumber(2);
+    sp.addNumber(3);
+...
+
+you can do
+    std::vector<int> v;
+
+    v.push_back(1);
+    v.push_back(2);
+    v.push_back(3);
+
+    sp.addRange(v.begin(), v.end());
+
+Flow
+
+    begin ---------- end
+    │               │
+    ▼               ▼
+
+        1 2 3 4 5
+
+for every iterator
+    ↓
+
+    addNumber(*it)
+
+---
+
+longestSpan()
+
+The largest distance between two numbers.
+
+Example
+    6 3 17 9 11
+
+Smallest value
+    3
+
+Largest value
+    17
+
+Longest span
+    17 - 3 = 14
+
+Algorithm
+    Need at least 2 numbers?
+
+            │
+    No ─────► exception
+            │
+        Yes
+            │
+    minimum element
+    maximum element
+            │
+    return max - min
+
+Implementation uses
+    std::min_element()
+    std::max_element()
+
+Complexity
+    O(n)
+
+---
+
+shortestSpan()
+
+Find the smallest difference between any two numbers.
+
+Example
+    6 3 17 9 11
+
+Sort first
+    3 6 9 11 17
+
+Now compare neighbors
+    6 - 3  = 3
+
+    9 - 6  = 3
+
+    11 - 9 = 2  ← shortest
+
+    17 - 11 = 6
+
+Result
+    2
+
+Why sort?
+    Without sorting
+        6 3 17 9 11
+
+    You would have to compare
+        6 with 3
+        6 with 17
+        6 with 9
+        6 with 11
+        ...
+
+        3 with 17
+        3 with 9
+        ...
+
+    which is
+        O(n²)
+
+    -> After sorting
+        3 6 9 11 17
+    
+    The closest numbers must be neighbors.
+
+Only compare
+    3-6
+    6-9
+    9-11
+    11-17
+
+Complexity becomes
+    Sort      O(n log n)
+    Scan      O(n)
+    Total     O(n log n)
+
+---
+
+Flow
+
+main()
+│
+├── Create Span(5)
+│
+├── addNumber()
+│
+├── addNumber()
+│
+├── addNumber()
+│
+├── addNumber()
+│
+├── addNumber()
+│
+├── shortestSpan()
+│      │
+│      ├── copy vector
+│      ├── sort
+│      ├── compare neighbors
+│      └── return minimum difference
+│
+├── longestSpan()
+│      │
+│      ├── find min
+│      ├── find max
+│      └── return max - min
+│
+└── print results
+
+---
+
+STL Algorithms used
+    | Algorithm                      | Purpose           |
+    | ------------------------------ | ----------------- |
+    | `std::sort()`                  | Sort numbers      |
+    | `std::min_element()`           | Smallest value    |
+    | `std::max_element()`           | Largest value     |
+    | `std::distance()` *(optional)* | Iterator distance |
+
+Complexity
+    | Function         | Complexity     |
+    | ---------------- | -------------- |
+    | `addNumber()`    | **O(1)**       |
+    | `addRange()`     | **O(n)**       |
+    | `longestSpan()`  | **O(n)**       |
+    | `shortestSpan()` | **O(n log n)** |
+
+---
+
+Why std::vector<int>
+
+1. Dynamic size up to N
+    You don't know the numbers beforehand.
+
+    Span sp(10000);
+
+    sp.addNumber(42);
+    sp.addNumber(17);
+    sp.addNumber(9);
+
+    A vector grows automatically as you call push_back().
+
+2. Fast insertion
+    _numbers.push_back(number);
+
+    Adding to the end of a vector is O(1) (amortized), making it ideal for addNumber().
+
+3. Works with STL algorithms
+
+    You need algorithms like:
+
+    std::sort(...)
+    std::min_element(...)
+    std::max_element(...)
+
+    A vector provides iterators that work perfectly with these algorithms.
+
+4. Supports iterator ranges
+
+    The subject asks you to implement something like:
+
+    sp.addRange(begin, end);
+
+    A vector naturally supports:
+
+    v.begin()
+    v.end()
+
+    making range insertion easy.
+
+5. Sorting is efficient
+
+    For shortestSpan() you need to sort.
+
+    std::sort(_numbers.begin(), _numbers.end());
+
+    std::sort requires random-access iterators.
+
+    std::vector provides them.
+
+    std::list does not.
