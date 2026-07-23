@@ -265,3 +265,155 @@ Why std::vector<int>
     std::vector provides them.
 
     std::list does not.
+
+---
+
+std::runtime_error is a standard exception class in C++.
+
+Think of it as a ready-made object whose job is to report runtime problems.
+
+It lives in:
+    #include <stdexcept>
+
+Why do we use it?
+    Suppose your Span can only hold 3 numbers.
+
+    Span sp(3);
+
+    sp.addNumber(10);
+    sp.addNumber(20);
+    sp.addNumber(30);
+    sp.addNumber(40);   // Error
+
+Instead of silently failing or crashing, you tell C++:
+
+    throw std::runtime_error("Span is full");
+
+This means:
+
+    "A problem happened while the program was running."
+
+What is runtime_error("Span is full")?
+
+    std::runtime_error("Span is full")
+
+    creates an exception object containing the message:
+        Span is full
+
+        Then
+            throw std::runtime_error("Span is full");
+
+        throws that object.
+
+    How is it caught?
+        try
+        {
+            sp.addNumber(40);
+        }
+        catch (const std::exception& e)
+        {
+            std::cout << e.what() << std::endl;
+        }
+
+Here's what happens:
+    1. throw creates a runtime_error.
+    2. The program leaves addNumber() immediately.
+    3. It looks for a matching catch.
+    4. catch receives the exception.
+    5. e.what() returns the error message.
+
+Output:
+    Span is full
+
+Why catch (std::exception&) works
+    std::runtime_error inherits from std::exception.
+
+        std::exception
+                ▲
+                │
+        std::runtime_error
+
+    So this catches it:
+        catch (const std::exception& e)
+        
+        because every runtime_error is a std::exception.
+
+---
+
+Other standard exceptions
+
+C++ provides several exception classes:
+
+std::runtime_error
+std::logic_error
+std::out_of_range
+std::invalid_argument
+std::overflow_error
+
+For example:
+    throw std::out_of_range("Index out of range");
+
+
+Make own exception:
+    class SpanFullException : public std::exception
+    {
+    public:
+        const char* what() const throw()
+        {
+            return "Span is full";
+        }
+    };
+
+Then you can write:
+    throw SpanFullException();
+
+---
+
+What is std::runtime_error?
+
+It is simply a class provided by the C++ Standard Library.
+
+class runtime_error : public exception
+{
+    ...
+};
+
+It inherits from std::exception.
+
+std::exception
+        │
+        ▼
+std::runtime_error
+
+Its purpose is to represent an error that happens while the program is running.
+
+For example:
+    - file not found
+    - divide by zero
+    - container is full
+    - invalid operation
+
+When you write
+    throw std::runtime_error("Span is full");
+
+you are doing two things:
+    - Creating a runtime_error object
+    - std::runtime_error error("Span is full");
+    - Throwing it
+    - throw error;
+    The shorter version combines them into one line.
+
+Why is it called runtime?
+    Because the error is not known when compiling.
+
+Example:
+    Span sp(3);
+
+    sp.addNumber(1);
+    sp.addNumber(2);
+    sp.addNumber(3);
+    sp.addNumber(4);
+
+The compiler cannot know you'll add a fourth number.
+
+Only when the program runs does it discover the container is full.
