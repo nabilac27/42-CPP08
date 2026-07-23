@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:10:35 by nchairun          #+#    #+#             */
-/*   Updated: 2026/07/23 18:36:39 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/23 23:24:56 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,3 +115,21 @@ int Span::longestSpan() const
 
 	return (max - min);
 }
+
+/* ************************************************************************** */
+/*  ADD RANGE                                                                 */
+/* ************************************************************************** */
+/*
+	1. Move through the iterator range.
+	2. Add each value using addNumber().
+	3. addNumber() automatically checks the capacity.
+*/
+// template <typename Iterator>
+// void Span::addRange(Iterator begin, Iterator end)
+// {
+// 	while (begin != end)
+// 	{
+// 		addNumber(*begin);
+// 		++begin;
+// 	}
+// }

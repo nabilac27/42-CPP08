@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 16:52:33 by nchairun          #+#    #+#             */
-/*   Updated: 2026/07/23 18:41:35 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/23 23:23:22 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,100 @@
 		Add a range of iterators
 		Tests with at least 10,000 numbers
 */
+
 int main()
 {
+	/* ************************************************************************** */
+	/*  ADD RANGE TEST                                                            */
+	/* ************************************************************************** */
+
+	std::cout << "========================================" << std::endl;
+	std::cout << "ADD RANGE TEST" << std::endl;
+	std::cout << "========================================" << std::endl;
+
+	try
+	{
+		std::vector<int> values;
+
+		values.push_back(6);
+		values.push_back(3);
+		values.push_back(17);
+		values.push_back(9);
+		values.push_back(11);
+
+		Span sp(5);
+
+		sp.addRange(values.begin(), values.end());
+
+		std::cout << "Shortest span: "
+				  << sp.shortestSpan() << std::endl;
+
+		std::cout << "Longest span : "
+				  << sp.longestSpan() << std::endl;
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << "Error: " << e.what() << std::endl;
+	}
+
+	/* ************************************************************************** */
+	/*  10,000 NUMBERS TEST                                                       */
+	/* ************************************************************************** */
+
+	std::cout << std::endl;
+	std::cout << "========================================" << std::endl;
+	std::cout << "10,000 NUMBERS TEST" << std::endl;
+	std::cout << "========================================" << std::endl;
+
+	try
+	{
+		std::vector<int> values;
+
+		for (int i = 0; i < 10000; ++i)
+			values.push_back(i);
+
+		Span largeSpan(10000);
+
+		largeSpan.addRange(values.begin(), values.end());
+
+		std::cout << "Shortest span: "
+				  << largeSpan.shortestSpan() << std::endl;
+
+		std::cout << "Longest span : "
+				  << largeSpan.longestSpan() << std::endl;
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << "Error: " << e.what() << std::endl;
+	}
+
+	/* ************************************************************************** */
+	/*  RANGE OVERFLOW TEST                                                       */
+	/* ************************************************************************** */
+
+	std::cout << std::endl;
+	std::cout << "========================================" << std::endl;
+	std::cout << "RANGE OVERFLOW TEST" << std::endl;
+	std::cout << "========================================" << std::endl;
+
+	try
+	{
+		std::vector<int> values;
+
+		values.push_back(10);
+		values.push_back(20);
+		values.push_back(30);
+		values.push_back(40);
+
+		Span smallSpan(3);
+
+		smallSpan.addRange(values.begin(), values.end());
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << "Error: " << e.what() << std::endl;
+	}
+
 	std::cout << "========================================" << std::endl;
 	std::cout << "LONGEST SPAN TEST" << std::endl;
 	std::cout << "========================================" << std::endl;
