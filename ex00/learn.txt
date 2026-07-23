@@ -21,3 +21,5 @@ main()
   ├── Dereferences iterator with *result
   │
   └── Or catches the exception
+
+---

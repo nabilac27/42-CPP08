@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 16:52:56 by nchairun          #+#    #+#             */
-/*   Updated: 2026/07/23 18:29:25 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/23 18:35:36 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ class Span
 
 	    void	addNumber(int number); //  to add a single number to the Span
         int     shortestSpan() const;
-
+        int     longestSpan() const;
 };
 
 #endif

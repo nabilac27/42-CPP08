@@ -417,3 +417,37 @@ Example:
 The compiler cannot know you'll add a fourth number.
 
 Only when the program runs does it discover the container is full.
+
+---
+
+What are min_element() and max_element()?
+    They are STL algorithms.
+
+    std::min_element(begin, end);
+
+    returns an iterator pointing to the smallest element.
+
+Example:
+    std::vector<int> v;
+
+    v.push_back(6);
+    v.push_back(3);
+    v.push_back(17);
+    v.push_back(9);
+
+Memory:
+    6  3  17  9
+    ↑
+    min_element()
+
+Since it returns an iterator, use * to get the value:
+    int minimum = *std::min_element(v.begin(), v.end());
+
+Result:
+    minimum = 3
+
+Likewise,
+    int maximum = *std::max_element(v.begin(), v.end());
+
+Result:
+    maximum = 17

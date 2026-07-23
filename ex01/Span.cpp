@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 17:10:35 by nchairun          #+#    #+#             */
-/*   Updated: 2026/07/23 18:32:03 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/23 18:36:39 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,34 @@ int Span::shortestSpan() const
 	}
 
 	return (shortest);
+}
+
+/* ************************************************************************** */
+/*  LONGEST SPAN                                                              */
+/* ************************************************************************** */
+/*
+    simplz : largest number − smallest number
+
+    Need at least 2 numbers?
+
+            │
+    No ─────► throw exception
+            │
+        Yes
+            │
+    Find smallest number
+    Find largest number
+            │
+    Return max - min
+*/
+
+int Span::longestSpan() const
+{
+	if (numbers.size() < 2)
+		throw std::runtime_error("Numbers must be at least 2");
+
+	int min = *std::min_element(numbers.begin(), numbers.end());
+	int max = *std::max_element(numbers.begin(), numbers.end());
+
+	return (max - min);
 }
