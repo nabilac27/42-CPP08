@@ -1,0 +1,23 @@
+main()
+  │
+  ├── Creates an integer container
+  │
+  ├── Calls easyfind(container, value)
+  │
+  ▼
+easyfind()
+  │
+  ├── Calls std::find(begin, end, value)
+  │
+  ├── Value found?
+  │      │
+  │      ├── Yes → return iterator
+  │      │
+  │      └── No  → throw exception
+  │
+  ▼
+main()
+  │
+  ├── Dereferences iterator with *result
+  │
+  └── Or catches the exception

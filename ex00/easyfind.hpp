@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/12 21:30:40 by nchairun          #+#    #+#             */
-/*   Updated: 2026/07/12 21:53:39 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/23 16:49:07 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,17 @@
 template<typename T>
 typename T::iterator easyfind(T& container, int value)
 {
-    typename T::iterator it;
+    typename T::iterator result;
 
-    it = std::find(container.begin(), container.end(), value);
+    result = std::find(container.begin(), container.end(), value);
     
-    if (it == container.end())
+    if (result == container.end())
         throw std::runtime_error("Value not found");
-    return (it);
+    return (result);
 }
 
 #endif
+
+/*
+    https://www.geeksforgeeks.org/cpp/std-find-in-cpp/
+*/
